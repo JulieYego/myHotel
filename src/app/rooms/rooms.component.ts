@@ -23,7 +23,8 @@ export class RoomsComponent {
     price : 1500,
     photos : "https://unsplash.com/photos/VGs8z60yT2c",
     checkinTime : new Date('12-Feb-2023'),
-    checkoutTime : new Date('16-Feb-2023')
+    checkoutTime : new Date('16-Feb-2023'),
+    rating: 4.5
   },{
     roomNumber: 2,
     roomType : "Standard Room",
@@ -31,7 +32,8 @@ export class RoomsComponent {
     price : 500,
     photos : "https://unsplash.com/photos/oxeCZrodz78",
     checkinTime : new Date('28-Feb-2023'),
-    checkoutTime : new Date('1-Mar-2023')
+    checkoutTime : new Date('1-Mar-2023'),
+    rating: 3.141592
   },{
     roomNumber: 3,
     roomType : "Private Suite",
@@ -39,7 +41,8 @@ export class RoomsComponent {
     price : 15000,
     photos : "https://unsplash.com/photos/KFDuhyW5H5w",
     checkinTime : new Date('7-Apr-2023'),
-    checkoutTime : new Date('12-Apr-2023')
+    checkoutTime : new Date('12-Apr-2023'),
+    rating: 4.8
   }]
 
   toggle(){
