@@ -29,8 +29,8 @@ export class RoomsListComponent implements OnInit, OnChanges {
     this.selectedRoom.emit(room)
   }
 
-  extradets(){
-    console.log("Extra deets (from rooms-list)")
+  sayHello() {
+    console.log("Hello from child component")
   }
 
 }

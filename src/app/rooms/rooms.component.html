@@ -1,5 +1,8 @@
 <!-- <h1>Welcome to {{ hotelName }}</h1> -->
 <hinv-header></hinv-header>
+<hinv-header></hinv-header>
+<hinv-header></hinv-header>
+
 <div [hidden]="hideRooms">
     Number of Rooms:
     <div [ngStyle]="{'color' : rooms.availableRooms ? 'pink':'purple'}"
@@ -21,3 +24,7 @@
 </div> 
 
 <button (click)="toggle()">Toggle</button>
+
+<!-- <hinv-rooms-list #child></hinv-rooms-list>
+<button (click)="childMethod()">Child Method</button> -->
+
