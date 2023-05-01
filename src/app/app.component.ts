@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/core';
+import { RoomsComponent } from './rooms/rooms.component';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
   //styles: [`h1 { color : red }`]
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  
   title = 'hotelinventoryapp';
   role = 'Manager'
+
+  // ViewContainerRef API creates an instance of the user template and inserts it into the DOM 
+  @ViewChild('user', {read: ViewContainerRef}) vcr!: ViewContainerRef
+
+  ngAfterViewInit(): void {
+    const componentRef = this.vcr.createComponent(RoomsComponent)
+    componentRef.instance.numberOfRooms = 50
+  }
 }
