@@ -1,5 +1,5 @@
 import { HeaderComponent } from './../header/header.component';
-import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomList } from './rooms';
 
 @Component({
@@ -11,6 +11,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   hotelName = 'Pearl Lodge'
   numberOfRooms = 10
   hideRooms = false;
+  numberOfGuests = 90
   selectedRoom! : RoomList
   rooms : Room = {
     totalRooms: 20,

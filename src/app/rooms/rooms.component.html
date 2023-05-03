@@ -19,8 +19,8 @@
     <button (click)="addRoom()">Add Room</button>
 </div>
 
-<div *ngIf = "rooms.availableRooms > 0">
-    <hinv-rooms-list [rooms]="roomList" (selectedRoom)="selectRoom($event)" [title]="title"></hinv-rooms-list>
+<div *ngIf = "hideRooms">
+    <hinv-rooms-list [rooms]="roomList" (selectedRoom)="selectRoom($event)" [title]="title" [numOfGuests]="numberOfGuests"></hinv-rooms-list>
 </div> 
 
 <button (click)="toggle()">Toggle</button>

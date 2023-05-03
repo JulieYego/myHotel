@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, OnDestroy } from '@angular/core';
 import { RoomList } from '../rooms';
 
 @Component({
@@ -7,20 +7,21 @@ import { RoomList } from '../rooms';
   styleUrls: ['./rooms-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoomsListComponent implements OnInit, OnChanges {
+export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
 
   //can be used as a property of the <hinv-rooms-list> tag
   @Input() rooms: RoomList[] =[]
 
   @Input() title: string = ''
 
+  @Input() numOfGuests : number = 0
+
   @Output() selectedRoom = new EventEmitter<RoomList>()
 
   constructor() {}
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    console.log("Changes is:",changes);
     this.title = changes['title'].currentValue.toUpperCase()
-    
   }
 
   ngOnInit() : void {}
@@ -31,6 +32,10 @@ export class RoomsListComponent implements OnInit, OnChanges {
 
   sayHello() {
     console.log("Hello from child component")
+  }
+
+  ngOnDestroy(): void {
+    console.log('on destroy is called');
   }
 
 }
