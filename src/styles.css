@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '~bootstrap/dist/css/bootstrap.min.css' */
 body{
-    background-color: #ECF2FF;
+    background-color: #E3DFFD;
 }
 
 h1{
@@ -13,5 +13,5 @@ h1{
 }
 
 .odd {
-    background-color: #E3DFFD;
+    background-color: #ECF2FF;
 }
