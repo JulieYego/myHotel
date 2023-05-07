@@ -21,7 +21,7 @@ export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
   constructor() {}
   ngOnChanges(changes: SimpleChanges): void {
     console.log("Changes is:",changes);
-    this.title = changes['title'].currentValue.toUpperCase()
+    //this.title = changes['title'].currentValue.toUpperCase()
   }
 
   ngOnInit() : void {}

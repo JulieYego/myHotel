@@ -7,10 +7,10 @@ export interface Room {
 export interface RoomList {
     roomNumber : number
     roomType : string
-    amenities : string
-    price : number
-    photos : string
+    roomAmenities : string
+    roomPrice : number
+    roomPhotos : string
     checkinTime : Date
     checkoutTime : Date
-    rating : number
+    roomRating : number
 }

@@ -1,5 +1,6 @@
-import { Component, ViewChild, ViewContainerRef, AfterViewInit, ElementRef, OnInit } from '@angular/core';
-import { RoomsComponent } from './rooms/rooms.component';
+import { Component, ViewChild, ViewContainerRef, AfterViewInit, ElementRef, OnInit, Optional, Inject } from '@angular/core';
+import { LoggerService } from './logger.service';
+import { localStorageToken } from './localstorage.token'; 
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,16 @@ import { RoomsComponent } from './rooms/rooms.component';
   //styles: [`h1 { color : red }`]
 })
 export class AppComponent implements AfterViewInit, OnInit {
+
+  constructor(
+    @Optional() private loggerService : LoggerService,
+    @Inject(localStorageToken) private localStorage : any
+    ) {}
+
   ngOnInit(): void {
-    console.log(this.name.nativeElement.innerText = "Melting")
+    this.loggerService?.log('AppComponent.ngOnInit()')
+    this.name.nativeElement.innerText = "Melting"
+    this.localStorage.setItem('name' , 'Pearl Lodge')    
   }
   
   title = 'hotelinventoryapp';
