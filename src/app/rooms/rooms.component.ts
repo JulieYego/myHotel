@@ -2,7 +2,8 @@ import { HeaderComponent } from './../header/header.component';
 import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnDestroy, OnInit, QueryList, SkipSelf, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomList } from './rooms';
 import { RoomsService } from './services/rooms.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription, catchError, map, of } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'hinv-rooms',
@@ -12,7 +13,7 @@ import { Observable } from 'rxjs';
 export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterViewChecked {
   hotelName = 'Pearl Lodge'
   numberOfRooms = 10
-  hideRooms = false;
+  hideRooms = true;
   numberOfGuests = 90
   selectedRoom! : RoomList
   rooms : Room = {
@@ -43,6 +44,26 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   //   this.childComponent.sayHello()
   // }
 
+  totalBytes = 0
+
+  subscription! : Subscription
+
+  error$ : Subject<string> = new Subject<string>
+
+  getErrors$ = this.error$.asObservable()
+
+  rooms$ = this.roomsService.getRooms$.pipe(
+    catchError((err) => {
+      //console.log(err);
+      this.error$.next(err.message)
+      return of([])
+    })
+  )
+
+  roomsCount$ = this.roomsService.getRooms$.pipe(
+    map((rooms) => rooms.length)
+  )
+
   constructor(@SkipSelf() private roomsService : RoomsService) {}
   
   ngOnInit() : void {
@@ -53,9 +74,32 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
       error: (err) => console.log(err)
     })
     this.stream.subscribe((data) => console.log(data))
-    this.roomsService.getRooms().subscribe(rooms => {
-      this.roomList = rooms;
-      //console.log(this.roomList);
+    // this.roomsService.getRooms$.subscribe(rooms => {
+    //   this.roomList = rooms;
+    //   //console.log(this.roomList);
+    // })
+
+    this.roomsService.getPhotos().subscribe((event) => {
+      switch (event.type){
+        case HttpEventType.Sent: {
+          console.log('Request Sent');
+          break;
+        }
+        case HttpEventType.ResponseHeader: {
+          console.log('Request success');
+          break;
+        }
+        case HttpEventType.DownloadProgress: {
+          this.totalBytes += event.loaded;
+          break;
+        }
+        case HttpEventType.Response: {
+          console.log(event.body);
+          break;
+        }
+
+      }
+      
     })
   }
 
@@ -83,21 +127,50 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   addRoom(){
     const room : RoomList = {
-      "roomNumber": 4,
+      "roomNumber": 2,
       "roomType" : "Private Suite",
       "roomAmenities" : "Air Conditioning, Free Wi-Fi, TV, Bathroom, Kitchenette, Living Room",
       "roomPrice" : 15000,
-      "roomPhotos" : "https://unsplash.com/photos/KFDuhyW5H5w",
+      "roomPhoto" : "https://unsplash.com/photos/KFDuhyW5H5w",
       "checkinTime" : new Date('7-Apr-2023'),
       "checkoutTime" : new Date('12-Apr-2023'),
       "roomRating": 4.8
     }
 
     //this.roomList.push(room)
-    // this.roomList = [...this.roomList,room]
-    this.roomsService.addRoom(room).subscribe((data => {
+    //this.roomList = [...this.roomList,room]
+    this.roomsService.addRoom(room).subscribe((data) => {
       this.roomList = data
-    }))
+    })
+  }
+
+  editRoom(){
+    const room : RoomList = {
+      "roomNumber": 2,
+      "roomType" : "Private Suite",
+      "roomAmenities" : "Air Conditioning, Free Wi-Fi, TV, Bathroom, Kitchenette, Living Room",
+      "roomPrice" : 15000,
+      "roomPhoto" : "https://unsplash.com/photos/KFDuhyW5H5w",
+      "checkinTime" : new Date('7-Apr-2023'),
+      "checkoutTime" : new Date('12-Apr-2023'),
+      "roomRating": 1.7
+    }
+
+    this.roomsService.editRoom(room).subscribe((data) => {
+      this.roomList = data
+    })
+  }
+
+  deleteRoom(){
+    this.roomsService.deleteRoom(6).subscribe((data) => {
+
+    })
+  }
+
+  ngOnDestroy(){
+    if(this.subscription){
+      this.subscription.unsubscribe()
+    }
   }
 
 }

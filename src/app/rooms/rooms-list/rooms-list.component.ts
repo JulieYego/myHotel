@@ -10,7 +10,7 @@ import { RoomList } from '../rooms';
 export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
 
   //can be used as a property of the <hinv-rooms-list> tag
-  @Input() rooms: RoomList[] =[]
+  @Input() rooms: RoomList[] | null =[]
 
   @Input() title: string = ''
 

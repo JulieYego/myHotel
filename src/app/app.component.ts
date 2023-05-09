@@ -1,6 +1,7 @@
 import { Component, ViewChild, ViewContainerRef, AfterViewInit, ElementRef, OnInit, Optional, Inject } from '@angular/core';
 import { LoggerService } from './logger.service';
 import { localStorageToken } from './localstorage.token'; 
+import { InitService } from './init.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,11 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   constructor(
     @Optional() private loggerService : LoggerService,
-    @Inject(localStorageToken) private localStorage : any
-    ) {}
+    @Inject(localStorageToken) private localStorage : any,
+    private initService : InitService
+    ) {
+      console.log(initService.config);  
+    }
 
   ngOnInit(): void {
     this.loggerService?.log('AppComponent.ngOnInit()')
