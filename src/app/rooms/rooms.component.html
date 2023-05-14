@@ -4,6 +4,7 @@
 <hinv-header></hinv-header> -->
 
 <!-- {{ rooms$ | async | json}} -->
+<router-outlet></router-outlet>
 
 <div [hidden]="hideRooms">
     Number of Rooms:
@@ -18,7 +19,8 @@
 </div>
 
 <div>
-    <button (click)="addRoom()">Add Room</button>
+    <!-- <button (click)="addRoom()">Add Room</button> -->
+    <button routerLink="add">Add Room</button>
 </div>
 
 <h1>

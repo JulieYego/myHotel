@@ -26,6 +26,8 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HoverDirective } from './hover.directive';
 import { EmailvalidatorDirective } from './emailValidator/emailvalidator.directive';
+import { BookingModule } from './booking/booking.module';
+import { RouteConfigToken } from './services/routeConfig.service';
 
 function initFactory(initService : InitService){
   return () => initService.init()
@@ -34,21 +36,17 @@ function initFactory(initService : InitService){
 @NgModule({
   declarations: [
     AppComponent,
-    RoomsComponent,
-    RoomsListComponent,
-    HeaderComponent,
     ContainerComponent,
     EmployeeComponent,
     AppNavComponent,
     NotFoundComponent,
-    RoomBookingComponent,
-    RoomsAddComponent,
     LoginComponent,
     HoverDirective,
     EmailvalidatorDirective,
   ],
   imports: [
     BrowserModule,
+    //RoomsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -58,12 +56,17 @@ function initFactory(initService : InitService){
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    FormsModule
+    FormsModule,
+    BookingModule,
   ],
   providers: [
     {
       provide : APP_SERVICE_CONFIG,
       useValue : APP_CONFIG 
+    },
+    {
+      provide : RouteConfigToken,
+      useValue : {title : 'Home'} 
     },
     {
       provide : HTTP_INTERCEPTORS,
